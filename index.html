@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traxis Manufacturing — Privacy Policy</title>
+  <style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --accent: #2563eb; --muted: #6b7280; --border: #e5e7eb; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--fg); background: var(--bg); line-height: 1.7; padding: 2rem 1rem; }
+    .container { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+    h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem; }
+    p, li { margin-bottom: 0.75rem; font-size: 0.95rem; }
+    ul { padding-left: 1.5rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">Traxis Label Printer — Chrome Extension</p>
+
+    <p><strong>Effective date:</strong> April 30, 2026</p>
+    <p><strong>Publisher:</strong> Traxis Manufacturing LLC, Austin, TX</p>
+
+    <h2>What This Extension Does</h2>
+    <p>Traxis Label Printer adds a print-label button to pages within our company's ProShop ERP system. When clicked, it reads product data from the current page and sends a label image to a Brother label printer on our local network. That is the extension's only function.</p>
+
+    <h2>Data We Collect</h2>
+    <p><strong>None.</strong> This extension does not collect, store, transmit, or share any personal data or browsing information. Specifically:</p>
+    <ul>
+      <li>No analytics, telemetry, or tracking of any kind.</li>
+      <li>No cookies are set by the extension.</li>
+      <li>No data is sent to any third-party server, cloud service, or external endpoint.</li>
+      <li>No user accounts, registration, or sign-in.</li>
+    </ul>
+
+    <h2>Data the Extension Reads</h2>
+    <p>The extension reads product information (work order numbers, material descriptions, part numbers, tool IDs, equipment names) solely from pages on our company's private ProShop ERP instance. This data is used only to render a label image in the browser tab and is never stored or transmitted beyond the local network print service.</p>
+
+    <h2>Network Communication</h2>
+    <p>The extension communicates with exactly two hosts, both declared in the manifest:</p>
+    <ul>
+      <li><strong>traxismfg.adionsystems.com</strong> — Our company's ProShop ERP instance (reads page data and, for some label types, queries the ProShop GraphQL API using the user's existing session cookie).</li>
+      <li><strong>10.1.1.242:5002</strong> — A Brother label printer service on our private local network. Label images are sent here for printing. This address is not reachable from the public internet.</li>
+    </ul>
+
+    <h2>Permissions</h2>
+    <ul>
+      <li><strong>activeTab</strong> — Required to read product data from the current ProShop page when the user clicks the print button.</li>
+      <li><strong>Host permissions</strong> — Scoped to our ProShop domain and local printer. The extension cannot access any other websites.</li>
+    </ul>
+
+    <h2>Who Uses This Extension</h2>
+    <p>This extension is published as <em>unlisted</em> on the Chrome Web Store and is intended solely for use by employees of Traxis Manufacturing on company shop-floor computers. It is not marketed to or intended for public use.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>If we update this policy, the revised version will be posted at this URL. The extension's scope and data practices are unlikely to change, as it is an internal tool with a narrow, single purpose.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy can be directed to:<br>
+    <a href="mailto:tom@traxismfg.com">tom@traxismfg.com</a></p>
+
+    <div class="footer">
+      <p>&copy; 2026 Traxis Manufacturing LLC. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
