@@ -24,54 +24,57 @@
     <h1>Privacy Policy</h1>
     <p class="subtitle">Traxis Label Printer — Chrome Extension</p>
 
-    <p><strong>Effective date:</strong> May 22, 2026</p>
+    <p><strong>Effective date:</strong> August 7, 2026</p>
     <p><strong>Publisher:</strong> Traxis Manufacturing LLC, Austin, TX</p>
 
     <h2>What This Extension Does</h2>
-    <p>Traxis Label Printer adds buttons to pages within our company's ProShop ERP system. The buttons perform two functions: (1) render a product label and send it to a Brother label printer on our local network, and (2) queue a purchase-order request for a consumable, tool, or part to an internal purchasing service on our local network for manual approval. These are the extension's only functions.</p>
+    <p>Traxis Label Printer adds buttons to pages within our company's ProShop ERP system, and to job pages within our company's Toolpath CAM account. The buttons perform three functions: (1) render a product label and send it to a Brother label printer on our local network, (2) queue a purchase-order request for a consumable, tool, or part to an internal purchasing service on our local network for manual approval, and (3) read a machining estimate from our own Toolpath account and send it to an internal service on our local network which creates a matching estimate in ProShop. These are the extension's only functions.</p>
 
     <h2>Data We Collect</h2>
-    <p><strong>None — no data leaves our local network.</strong> This extension does not collect, store, transmit, or share any personal data or browsing information with any third party. Specifically:</p>
+    <p><strong>None. We do not collect, store, sell, or share any personal data, and no data is sent to any third party.</strong> Specifically:</p>
     <ul>
       <li>No analytics, telemetry, or tracking of any kind.</li>
       <li>No cookies are set by the extension.</li>
-      <li>No data is sent to any public-internet server, cloud service, or external endpoint.</li>
-      <li>No user accounts, registration, or sign-in.</li>
+      <li>No data is transmitted to any public-internet server. All data the extension sends goes to services on our own private LAN, which are not reachable from the internet.</li>
+      <li>No user accounts, registration, or sign-in. The extension uses whatever session the user is already signed in to.</li>
+      <li>The extension is used only by our own employees on company equipment.</li>
     </ul>
 
     <h2>Data the Extension Reads</h2>
-    <p>The extension reads product information solely from pages on our company's private ProShop ERP instance:</p>
     <ul>
-      <li><strong>Label rendering</strong> — work-order numbers, customer PO numbers, material descriptions, part numbers, tool IDs, equipment names, COTS identifiers, and user names.</li>
+      <li><strong>Label rendering</strong> — work-order numbers, customer PO numbers, material descriptions, part numbers, tool IDs, equipment names and serial numbers, COTS identifiers, fixture numbers, and user names, read from the ProShop page or its API.</li>
       <li><strong>Purchase-order queueing</strong> — the entity identifier (e.g. tool number or COTS code), the quantity entered by the user in a browser prompt, and (when visible on the page) the unit cost, brand, and supplier name.</li>
+      <li><strong>Estimate export</strong> — from our own Toolpath account: per-setup machining times, operation names, and the material class for the job the user is viewing. No Toolpath account, billing, or personal information is read.</li>
     </ul>
-    <p>This data is used only to render the label image in the browser tab or to send the purchase-order request to our internal purchasing service. It is never stored by the extension and never transmitted beyond the local network.</p>
 
     <h2>Network Communication</h2>
-    <p>The extension communicates with exactly three hosts, all declared in the manifest:</p>
+    <p>The extension communicates with the following hosts, and no others:</p>
     <ul>
       <li><strong>traxismfg.adionsystems.com</strong> — Our company's ProShop ERP instance. The extension reads page DOM and, for some label types, queries the ProShop GraphQL API using the user's existing session cookie.</li>
-      <li><strong>10.1.1.242:5002</strong> — A Brother PT-P700 label printer service on our private LAN. Rendered label images are POSTed here for printing. This address is not reachable from the public internet.</li>
-      <li><strong>10.1.1.161:5003</strong> — An internal purchasing-queue service on our private LAN. Purchase-order requests (entity ID, quantity, optional cost/brand/vendor) are POSTed here for review and approval by authorized staff. This address is not reachable from the public internet.</li>
+      <li><strong>app.toolpath.com</strong> — Our company's Toolpath CAM account. On a job page the user is already viewing, the extension reads that job's estimate from Toolpath's own API using the user's existing session. This is a read only: <em>the extension never sends data to Toolpath.</em> This is the only public-internet host the extension contacts, and it is contacted only on pages the user has already opened in our own account.</li>
+      <li><strong>10.1.1.242:5002</strong> and <strong>10.1.1.242:5003</strong> — Brother PT-P700 label printer services (24&nbsp;mm and 12&nbsp;mm tape) on our private LAN. Rendered label images are POSTed here for printing. Not reachable from the public internet.</li>
+      <li><strong>10.1.1.161:5003</strong> — An internal purchasing-queue service on our private LAN. Purchase-order requests (entity ID, quantity, optional cost/brand/vendor) are POSTed here for review and approval by authorized staff. Not reachable from the public internet.</li>
+      <li><strong>127.0.0.1:8046</strong> and <strong>10.1.1.161:8046</strong> — An internal estimate-bridge service, running either on the user's own computer or on our private LAN server. The machining estimate read from Toolpath is POSTed here so it can be written into ProShop. Neither address is reachable from the public internet.</li>
     </ul>
 
     <h2>Permissions</h2>
     <ul>
-      <li><strong>Host permissions</strong> — Scoped to (a) our ProShop ERP domain, (b) our internal label-printer service, and (c) our internal purchasing-queue service. The extension cannot access any other websites or services.</li>
+      <li><strong>Host permissions</strong> — Scoped to (a) our ProShop ERP domain, (b) our company's Toolpath account, (c) our internal label-printer services, (d) our internal purchasing-queue service, and (e) our internal estimate-bridge service. The extension cannot access any other websites or services.</li>
+      <li><strong>Content scripts</strong> — Injected only on specific page paths within those two domains (work orders, COTS, equipment, fixtures, users, tools, parts, purchase orders, and Toolpath part reports).</li>
+      <li>The extension requests no other Chrome permissions — no storage, no history, no bookmarks, no identity, no background access to other tabs.</li>
     </ul>
 
     <h2>Who Uses This Extension</h2>
-    <p>This extension is published as <em>unlisted</em> on the Chrome Web Store and is intended solely for use by employees of Traxis Manufacturing on company shop-floor computers. It is not marketed to or intended for public use.</p>
+    <p>This extension is published unlisted and is used solely by employees of Traxis Manufacturing LLC on company equipment. It is not intended or offered for general public use.</p>
 
     <h2>Changes to This Policy</h2>
-    <p>If we update this policy, the revised version will be posted at this URL. The extension's scope and data practices are narrow and unlikely to change beyond adding additional internal-LAN destinations as our shop's internal tooling expands.</p>
+    <p>If the extension's data handling changes, this policy will be updated before the corresponding version is published. This version reflects extension version 1.7.6.</p>
 
     <h2>Contact</h2>
-    <p>Questions about this policy can be directed to:<br>
-    <a href="mailto:tom@traxismfg.com">tom@traxismfg.com</a></p>
+    <p>Questions about this policy: <a href="mailto:wolfgang@traxismfg.com">wolfgang@traxismfg.com</a></p>
 
     <div class="footer">
-      <p>&copy; 2026 Traxis Manufacturing LLC. All rights reserved.</p>
+      Traxis Manufacturing LLC — Austin, Texas
     </div>
   </div>
 </body>
