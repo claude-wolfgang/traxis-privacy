@@ -24,18 +24,19 @@
     <h1>Privacy Policy</h1>
     <p class="subtitle">Traxis Label Printer — Chrome Extension</p>
 
-    <p><strong>Effective date:</strong> August 7, 2026</p>
+    <p><strong>Effective date:</strong> October 9, 2026</p>
     <p><strong>Publisher:</strong> Traxis Manufacturing LLC, Austin, TX</p>
 
     <h2>What This Extension Does</h2>
-    <p>Traxis Label Printer adds buttons to pages within our company's ProShop ERP system, and to job pages within our company's Toolpath CAM account. The buttons perform three functions: (1) render a product label and send it to a Brother label printer on our local network, (2) queue a purchase-order request for a consumable, tool, or part to an internal purchasing service on our local network for manual approval, and (3) read a machining estimate from our own Toolpath account and send it to an internal service on our local network which creates a matching estimate in ProShop. These are the extension's only functions.</p>
+    <p>Traxis Label Printer adds buttons to pages within our company's ProShop ERP system, and to job pages within our company's Toolpath CAM account. Every button acts on the ProShop or Toolpath record the employee is viewing and sends it to a company-internal destination. The functions are: (1) render a product label and send it to a Brother label printer on our local network; (2) queue a purchase-order request for a consumable, tool, or part to an internal purchasing service for manual approval; (3) read a machining estimate from our own Toolpath account and send it to an internal service which creates a matching estimate in ProShop; (4) file a work request with our own staff &mdash; a programming change, an estimate to build, or a first-article inspection of a machining operation &mdash; to an internal request service; (5) on ProShop's front page, let an employee request time off and see their own requests, and let authorized supervisors approve or decline them, through an internal attendance service; and (6) on ProShop user pages, let authorized supervisors record an employee attendance or conduct event in that employee's ProShop review history and print it. These are the extension's only functions.</p>
 
     <h2>Data We Collect</h2>
-    <p><strong>None. We do not collect, store, sell, or share any personal data, and no data is sent to any third party.</strong> Specifically:</p>
+    <p><strong>The extension sends no data to any third party, and we do not sell or share any data.</strong> Some functions handle employee information, and it stays inside company systems: the employee's own name on requests they file; time-off dates and an optional reason, stored by our internal attendance service; and employee attendance or conduct records, written by authorized supervisors into our own ProShop system. Specifically:</p>
     <ul>
       <li>No analytics, telemetry, or tracking of any kind.</li>
       <li>No cookies are set by the extension.</li>
-      <li>No data is transmitted to any public-internet server. All data the extension sends goes to services on our own private LAN, which are not reachable from the internet.</li>
+      <li>No data is transmitted to any public-internet server other than our own ProShop instance. Everything else the extension sends goes to services on our own private LAN, which are not reachable from the internet.</li>
+      <li>Employee records are used only for the company's own staffing and HR purposes, under the access controls ProShop already enforces; the incident and approval functions appear only for users who hold the corresponding ProShop permissions.</li>
       <li>No user accounts, registration, or sign-in. The extension uses whatever session the user is already signed in to.</li>
       <li>The extension is used only by our own employees on company equipment.</li>
     </ul>
@@ -44,6 +45,9 @@
     <ul>
       <li><strong>Label rendering</strong> — work-order numbers, customer PO numbers, material descriptions, part numbers, tool IDs, equipment names and serial numbers, COTS identifiers, fixture numbers, and user names, read from the ProShop page or its API.</li>
       <li><strong>Purchase-order queueing</strong> — the entity identifier (e.g. tool number or COTS code), the quantity entered by the user in a browser prompt, and (when visible on the page) the unit cost, brand, and supplier name.</li>
+      <li><strong>Work requests</strong> &mdash; the work order, operation, estimate or part identifiers of the record on screen, the signed-in employee's name, and any note they type.</li>
+      <li><strong>Time off</strong> &mdash; the signed-in employee's ProShop user ID and name, the dates requested, and an optional reason they type; for supervisors, the pending requests they may approve.</li>
+      <li><strong>Incident records</strong> &mdash; the employee's existing ProShop review history and clock punches (to show prior records and the day's clock-in), and the event details a supervisor enters.</li>
       <li><strong>Estimate export</strong> — from our own Toolpath account: per-setup machining times, operation names, and the material class for the job the user is viewing. No Toolpath account, billing, or personal information is read.</li>
     </ul>
 
@@ -55,12 +59,14 @@
       <li><strong>10.1.1.242:5002</strong> and <strong>10.1.1.242:5003</strong> — Brother PT-P700 label printer services (24&nbsp;mm and 12&nbsp;mm tape) on our private LAN. Rendered label images are POSTed here for printing. Not reachable from the public internet.</li>
       <li><strong>10.1.1.161:5003</strong> — An internal purchasing-queue service on our private LAN. Purchase-order requests (entity ID, quantity, optional cost/brand/vendor) are POSTed here for review and approval by authorized staff. Not reachable from the public internet.</li>
       <li><strong>127.0.0.1:8046</strong> and <strong>10.1.1.161:8046</strong> — An internal estimate-bridge service, running either on the user's own computer or on our private LAN server. The machining estimate read from Toolpath is POSTed here so it can be written into ProShop. Neither address is reachable from the public internet.</li>
+      <li><strong>10.1.1.161:5091</strong> &mdash; An internal work-request service on our private LAN. Programming, estimate and first-article requests (record identifiers, the employee's name, an optional note) are POSTed here so the responsible staff see them on their queues. Not reachable from the public internet.</li>
+      <li><strong>10.1.1.161:5093</strong> &mdash; An internal attendance service on our private LAN. Time-off requests and supervisors' approve/decline decisions are sent here and stored there. Not reachable from the public internet.</li>
     </ul>
 
     <h2>Permissions</h2>
     <ul>
-      <li><strong>Host permissions</strong> — Scoped to (a) our ProShop ERP domain, (b) our company's Toolpath account, (c) our internal label-printer services, (d) our internal purchasing-queue service, and (e) our internal estimate-bridge service. The extension cannot access any other websites or services.</li>
-      <li><strong>Content scripts</strong> — Injected only on specific page paths within those two domains (work orders, COTS, equipment, fixtures, users, tools, parts, purchase orders, and Toolpath part reports).</li>
+      <li><strong>Host permissions</strong> — Scoped to (a) our ProShop ERP domain, (b) our company's Toolpath account, (c) our internal label-printer services, (d) our internal purchasing-queue service, (e) our internal estimate-bridge service, (f) our internal work-request service, and (g) our internal attendance service. The extension cannot access any other websites or services.</li>
+      <li><strong>Content scripts</strong> — Injected only on specific page paths within those two domains (the ProShop front page, work orders, estimates, COTS, equipment, fixtures, users, tools, parts, purchase orders, and Toolpath part pages).</li>
       <li>The extension requests no other Chrome permissions — no storage, no history, no bookmarks, no identity, no background access to other tabs.</li>
     </ul>
 
@@ -68,10 +74,10 @@
     <p>This extension is published unlisted and is used solely by employees of Traxis Manufacturing LLC on company equipment. It is not intended or offered for general public use.</p>
 
     <h2>Changes to This Policy</h2>
-    <p>If the extension's data handling changes, this policy will be updated before the corresponding version is published. This version reflects extension version 1.7.6.</p>
+    <p>If the extension's data handling changes, this policy will be updated before the corresponding version is published. This version reflects extension version 1.7.23.</p>
 
     <h2>Contact</h2>
-    <p>Questions about this policy: <a href="mailto:wolfgang@traxismfg.com">wolfgang@traxismfg.com</a></p>
+    <p>Questions about this policy: <a href="mailto:tom@traxismfg.com">tom@traxismfg.com</a></p>
 
     <div class="footer">
       Traxis Manufacturing LLC — Austin, Texas
