@@ -47,6 +47,7 @@
       <li><strong>Purchase-order queueing</strong> — the entity identifier (e.g. tool number or COTS code), the quantity entered by the user in a browser prompt, and (when visible on the page) the unit cost, brand, and supplier name.</li>
       <li><strong>Work requests</strong> &mdash; the work order, operation, estimate or part identifiers of the record on screen, the signed-in employee's name, and any note they type.</li>
       <li><strong>Time off</strong> &mdash; the signed-in employee's ProShop user ID and name, the dates requested, and an optional reason they type; for supervisors, the pending requests they may approve.</li>
+      <li><strong>Your numbers</strong> &mdash; on the ProShop front page, the signed-in employee's own time-tracking report, schedule note and last review date, read from ProShop in the browser under their own session, plus their own approved time off from our attendance service. It is shown only to that employee, is not sent anywhere, and cannot show anyone else's numbers.</li>
       <li><strong>Incident records</strong> &mdash; the employee's existing ProShop review history and clock punches (to show prior records and the day's clock-in), and the event details a supervisor enters.</li>
       <li><strong>Estimate export</strong> — from our own Toolpath account: per-setup machining times, operation names, and the material class for the job the user is viewing. No Toolpath account, billing, or personal information is read.</li>
     </ul>
@@ -60,7 +61,7 @@
       <li><strong>10.1.1.161:5003</strong> — An internal purchasing-queue service on our private LAN. Purchase-order requests (entity ID, quantity, optional cost/brand/vendor) are POSTed here for review and approval by authorized staff. Not reachable from the public internet.</li>
       <li><strong>127.0.0.1:8046</strong> and <strong>10.1.1.161:8046</strong> — An internal estimate-bridge service, running either on the user's own computer or on our private LAN server. The machining estimate read from Toolpath is POSTed here so it can be written into ProShop. Neither address is reachable from the public internet.</li>
       <li><strong>10.1.1.161:5091</strong> &mdash; An internal work-request service on our private LAN. Programming, estimate and first-article requests (record identifiers, the employee's name, an optional note) are POSTed here so the responsible staff see them on their queues. Not reachable from the public internet.</li>
-      <li><strong>10.1.1.161:5093</strong> &mdash; An internal attendance service on our private LAN. Time-off requests and supervisors' approve/decline decisions are sent here and stored there. Not reachable from the public internet.</li>
+      <li><strong>10.1.1.161:5093</strong> &mdash; An internal attendance service on our private LAN. Time-off requests and supervisors' approve/decline decisions are sent here and stored there. The front-page "Your numbers" panel also reads the employee's own approved time off from it. Not reachable from the public internet.</li>
     </ul>
 
     <h2>Permissions</h2>
@@ -74,7 +75,7 @@
     <p>This extension is published unlisted and is used solely by employees of Traxis Manufacturing LLC on company equipment. It is not intended or offered for general public use.</p>
 
     <h2>Changes to This Policy</h2>
-    <p>If the extension's data handling changes, this policy will be updated before the corresponding version is published. This version reflects extension version 1.7.23.</p>
+    <p>If the extension's data handling changes, this policy will be updated before the corresponding version is published. This version reflects extension version 1.7.25.</p>
 
     <h2>Contact</h2>
     <p>Questions about this policy: <a href="mailto:tom@traxismfg.com">tom@traxismfg.com</a></p>
